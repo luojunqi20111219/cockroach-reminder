@@ -1,7 +1,7 @@
 # 🪳 蟑螂提醒 (Cockroach Reminder)
 
 > [!CAUTION]
-> **⚠️ 重要警告：本软件仅限开发者本人测试使用，严禁私自安装到他人的电脑上！**
+> **⚠️ 重要警告：本软件仅限本人使用，严禁私自安装到他人的电脑上！**
 > **⚠️ WARNING: FOR PERSONAL USE ONLY. PRIVATE INSTALLATION ON OTHERS' COMPUTERS IS STRICTLY PROHIBITED.**
 
 ---
