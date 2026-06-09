@@ -1,0 +1,41 @@
+appId: com.cockroach.reminder
+productName: 蟑螂提醒
+copyright: Copyright © 2024 XUANLI
+
+directories:
+  output: dist
+  buildResources: build
+
+files:
+  - src/**/*
+  - package.json
+
+extraResources:
+  - from: assets/
+    to: assets/
+    filter: ["**/*"]
+
+mac:
+  category: public.app-category.health-fitness
+  target:
+    - dmg
+    - zip
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  extendInfo:
+    LSUIElement: 1
+
+win:
+  target:
+    - nsis
+    - portable
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+
+linux:
+  target:
+    - AppImage
+  category: Utility
