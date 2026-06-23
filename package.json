@@ -9,14 +9,19 @@
     "dev": "cross-env NODE_ENV=development electron .",
     "build:mac": "electron-builder --mac",
     "build:win": "electron-builder --win",
-    "build:all": "electron-builder --mac --win"
+    "build:linux": "electron-builder --linux",
+    "build:all": "electron-builder --mac --win --linux"
   },
-  "keywords": ["break-reminder", "cockroach", "electron"],
+  "keywords": [
+    "break-reminder",
+    "cockroach",
+    "electron"
+  ],
   "license": "MIT",
   "devDependencies": {
-    "electron": "^35.0.0",
-    "electron-builder": "^26.0.0",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "electron": "^35.7.5",
+    "electron-builder": "^26.0.0"
   },
   "dependencies": {
     "electron-store": "^8.2.0"
