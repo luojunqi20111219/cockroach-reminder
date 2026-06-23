@@ -37,5 +37,6 @@ nsis:
 
 linux:
   target:
-    - AppImage
+    - zip
+    - tar.gz
   category: Utility
