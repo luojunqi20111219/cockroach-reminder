@@ -71,6 +71,10 @@ class OverlayManager {
     const overlayPath = path.join(__dirname, '..', 'renderer', 'overlay', 'overlay.html');
     win.loadFile(overlayPath);
 
+    win.webContents.on('console-message', (event, level, message, line, sourceId) => {
+      console.log(`[Overlay Console] ${message} (${path.basename(sourceId)}:${line})`);
+    });
+
     win.on('ready-to-show', () => {
       // Don't show yet — only show during break
     });

@@ -32,6 +32,10 @@ class SettingsWindow {
     const settingsPath = path.join(__dirname, '..', 'renderer', 'settings', 'settings.html');
     this.window.loadFile(settingsPath);
 
+    this.window.webContents.on('console-message', (event, level, message, line, sourceId) => {
+      console.log(`[Settings Console] ${message} (${path.basename(sourceId)}:${line})`);
+    });
+
     this.window.once('ready-to-show', () => {
       this.window.show();
     });
