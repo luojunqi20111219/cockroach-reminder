@@ -8,6 +8,7 @@ class Timer extends EventEmitter {
     this.phase = PHASE.IDLE;
     this.remainingMs = 0;
     this.intervalId = null;
+    this.endTime = 0;
     this.intervalMinutes = store.get('intervalMinutes');
     this.durationSeconds = store.get('durationSeconds');
   }
@@ -15,6 +16,7 @@ class Timer extends EventEmitter {
   start() {
     this.stop();
     this.remainingMs = this.intervalMinutes * 60 * 1000;
+    this.endTime = Date.now() + this.remainingMs;
     this.phase = PHASE.RUNNING;
     this.emit('phase-change', { phase: this.phase });
     this._startTicking();
@@ -30,6 +32,7 @@ class Timer extends EventEmitter {
   resume() {
     if (this.phase !== PHASE.PAUSED) return;
     this.phase = PHASE.RUNNING;
+    this.endTime = Date.now() + this.remainingMs;
     this.emit('phase-change', { phase: this.phase });
     this._startTicking();
   }
@@ -38,6 +41,7 @@ class Timer extends EventEmitter {
     this._stopTicking();
     this.phase = PHASE.BREAK;
     this.remainingMs = this.durationSeconds * 1000;
+    this.endTime = Date.now() + this.remainingMs;
     this.emit('phase-change', { phase: this.phase });
 
     this._startTicking(() => {
@@ -80,7 +84,7 @@ class Timer extends EventEmitter {
   _startTicking(onBreakEnd) {
     this._stopTicking();
     this.intervalId = setInterval(() => {
-      this.remainingMs -= 1000;
+      this.remainingMs = this.endTime - Date.now();
 
       this.emit('tick', this.getRemaining());
 

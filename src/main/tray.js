@@ -10,6 +10,8 @@ class TrayManager {
     this.onTriggerBreak = onTriggerBreak;
     this.onToggleTimer = onToggleTimer;
     this.onQuit = onQuit;
+    this.lastMinutes = -1;
+    this.lastPhase = null;
   }
 
   init() {
@@ -118,8 +120,18 @@ class TrayManager {
   }
 
   refresh() {
-    this.updateTooltip();
-    this._rebuildMenu();
+    const state = this.timer.getRemaining();
+    const currentMinutes = state.minutes;
+    const currentPhase = state.phase;
+
+    // Refresh UI only if the minute count or phase stage changed, or if it is in the break phase (showing seconds remaining is useful)
+    if (currentMinutes !== this.lastMinutes || currentPhase !== this.lastPhase || currentPhase === PHASE.BREAK) {
+      this.lastMinutes = currentMinutes;
+      this.lastPhase = currentPhase;
+
+      this.updateTooltip();
+      this._rebuildMenu();
+    }
   }
 
   destroy() {

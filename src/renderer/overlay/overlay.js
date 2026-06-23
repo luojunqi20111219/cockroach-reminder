@@ -41,6 +41,7 @@ class Cockroach {
     this.vx = 0;
     this.vy = 0;
     this.lastUpdateTime = 0;
+    this.cachedWidth = 0;
 
     // Speed: 35% normal, 65% fast
     const isFast = Math.random() < (this.config.fastSpeedProbability || 0.65);
@@ -101,6 +102,7 @@ class Cockroach {
     // Set size based on config
     const sizePercent = this.config.cockroachSizePercent || 35;
     this.el.style.width = `${sizePercent}vw`;
+    this.cachedWidth = window.innerWidth * (sizePercent / 100);
 
     this.el.style.left = `${x}px`;
     this.el.style.top = `${y}px`;
@@ -135,7 +137,7 @@ class Cockroach {
     const frameNum = this.frameIndex % TOTAL_FRAMES;
     const cycle = Math.floor(this.frameIndex / TOTAL_FRAMES);
     const movementPercent = (this.config.movementPercent || 13.5) / 100;
-    const offset = cycle * (this.el.offsetWidth * movementPercent);
+    const offset = cycle * (this.cachedWidth * movementPercent);
 
     this.el.src = frameImages[frameNum].src;
 
@@ -150,7 +152,7 @@ class Cockroach {
     this.frameIndex++;
 
     // Boundary check
-    const margin = this.el.offsetWidth;
+    const margin = this.cachedWidth;
     const W = window.innerWidth;
     const H = window.innerHeight;
     if (
